@@ -24,6 +24,7 @@ import org.jxmapviewer.viewer.TileFactoryInfo;
 
 import servicios.DivisionPoliticaServicio;
 import servicios.RenderizadoNodo;
+import servicios.ReproductorAudio;
 
 public class FrmDivisionPolitica extends JFrame {
 
@@ -123,8 +124,20 @@ public class FrmDivisionPolitica extends JFrame {
         }
     }
 
-    private void reproducirHimno() {
+    private boolean reproduciendo = false;
 
+    private void reproducirHimno() {
+        if (!reproduciendo) {
+            var nodoSeleccionado = (DefaultMutableTreeNode) arbol.getLastSelectedPathComponent();
+            if (nodoSeleccionado != null) {
+                var nombrePais = obtenerPais(nodoSeleccionado);
+                DivisionPoliticaServicio.reproducirHimno(nombrePais);
+            }
+        }
+        else{
+            ReproductorAudio.detener();
+        }
+        reproduciendo = !reproduciendo;
     }
 
 }

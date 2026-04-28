@@ -67,7 +67,7 @@ public class DivisionPoliticaServicio {
             return;
         }
 
-        GeoPosition posicion=new GeoPosition(pais.getLatitud(), pais.getLongitud());
+        GeoPosition posicion = new GeoPosition(pais.getLatitud(), pais.getLongitud());
         visorMapa.setZoom(pais.getZoom());
         visorMapa.setAddressLocation(posicion);
 
@@ -80,5 +80,20 @@ public class DivisionPoliticaServicio {
 
         visorMapa.setOverlayPainter(painter);
 
+    }
+
+    
+
+    public static void reproducirHimno(String nombrePais) {
+        nombrePais = nombrePais.replace("á", "a")
+                .replace("é", "e")
+                .replace("í", "i")
+                .replace("ó", "o")
+                .replace("ú", "u");
+        String rutaHimno = "src/himnos/" + nombrePais + ".mp3";
+        File archivoHimno = new File(rutaHimno);
+        if (!archivoHimno.exists())
+            return;
+        ReproductorAudio.reproducir(rutaHimno);
     }
 }
